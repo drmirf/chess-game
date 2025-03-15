@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#chess-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.message {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    min-height: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+
+.last-move {
+    font-weight: 600;
+}
+
+.turn-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.turn-label {
+    font-weight: 600;
+}
+
+.turn-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.turn-color.red {
+    background-color: #e74c3c;
+}
+
+.turn-color.blue {
+    background-color: #3498db;
+}
+
+.queen-counter {
+    font-weight: 600;
+}
+
+.move-counter {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.board-container {
+    margin-bottom: 2rem;
+}
+
+.col-labels {
+    display: flex;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.col-labels .label {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+}
+
+.board-wrapper {
+    display: flex;
+}
+
+.row-labels {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+}
+
+.row-labels .label {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #555;
+    width: 20px;
+}
+
+.chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: repeat(8, 50px);
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.square:hover {
+    opacity: 0.8;
+}
+
+.square-light {
+    background-color: #f0d9b5;
+}
+
+.square-dark {
+    background-color: #b58863;
+}
+
+.square-selected {
+    background-color: #f1c40f !important;
+}
+
+.square-last-from {
+    background-color: #2ecc71 !important;
+}
+
+.square-last-to {
+    background-color: #27ae60 !important;
+}
+
+.piece {
+    position: relative;
+    z-index: 2;
+}
+
+.piece-red {
+    color: #e74c3c;
+}
+
+.piece-blue {
+    color: #3498db;
+}
+
+.piece-yellow {
+    color: #f1c40f;
+    animation: bounce 0.5s infinite alternate;
+}
+
+.square-notation {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    opacity: 0.6;
+}
+
+.explosion {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ffeb3b, #ff9800, #f44336);
+    border-radius: 50%;
+    z-index: 1;
+    animation: explode 0.8s forwards;
+}
+
+.queen-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #f44336;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 100;
+    animation: pulse 0.5s infinite alternate;
+    text-shadow: 0 0 10px #ffeb3b;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.button {
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button.blue {
+    background-color: #3498db;
+}
+
+.button.blue:hover {
+    background-color: #2980b9;
+}
+
+.button.yellow {
+    background-color: #f1c40f;
+}
+
+.button.yellow:hover {
+    background-color: #f39c12;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.instructions {
+    max-width: 600px;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+}
+
+.instructions p {
+    margin-bottom: 0.5rem;
+}
+
+.instructions .subtitle {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.instructions ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.instructions .note {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-top: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
